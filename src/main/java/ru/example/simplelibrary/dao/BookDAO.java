@@ -41,10 +41,12 @@ public class BookDAO {
                 book.getAuthor(), book.getYear(), id);
     }
 
+    // Назначает книгу читателю (этот метод вызывается, когда читатель забирает книгу из библиотеки)
     public void give(int id, int person_id) {
         jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?", person_id, id);
     }
 
+    // Освбождает книгу (этот метод вызывается, когда читатель возвращает книгу в библиотеку)
     public void free(int id) {
         jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?", id);
     }

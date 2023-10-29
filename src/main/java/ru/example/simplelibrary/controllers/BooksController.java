@@ -76,13 +76,13 @@ public class BooksController {
     @PatchMapping("/{id}/give")
     public String giveBook(@ModelAttribute("person") Person person, @PathVariable("id") int id) {
         bookDAO.give(id, person.getId());
-        return "redirect:/books/{id}";
+        return "redirect:/books/" + id;
     }
 
     @PatchMapping("/{id}/free")
     public String freeBook(@PathVariable("id") int id) {
         bookDAO.free(id);
-        return "redirect:/books/{id}";
+        return "redirect:/books/" + id;
     }
 
     @DeleteMapping("/{id}")
