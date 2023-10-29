@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.example.simplelibrary.models.Book;
 import ru.example.simplelibrary.models.Person;
 
 import java.util.List;
@@ -28,9 +29,16 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
 
-    public Optional<Person> show(String fio) {
+    // Для валидации уникальности ФИО
+    public Optional<Person> getPersonByFIO(String fio) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE fio=?", new Object[]{fio}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny();
+    }
+
+    // Получение списка книг по id читателя
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
     }
 
     public void save(Person person) {

@@ -8,16 +8,16 @@ public class Book {
 
     private Integer person_id;
 
-    @NotEmpty(message = "Title should not be empty")
+    @NotEmpty(message = "Название книги не должно быть пустым")
     private String title;
     private String author;
     private int year;
 
+    // Конструктор по умолчанию нужен для Spring
     public Book() {
     }
 
-    public Book(Integer person_id, String title, String author, int year) {
-        this.person_id = person_id;
+    public Book(String title, String author, int year) {
         this.title = title;
         this.author = author;
         this.year = year;

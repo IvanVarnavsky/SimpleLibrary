@@ -27,13 +27,13 @@ public class PersonValidator implements Validator {
         Person person = (Person) o;
 
         // Проверка уникальности ФИО
-        if (personDAO.show(person.getFio()).isPresent() && personDAO.show(person.getId()) == null) {
-            errors.rejectValue("fio", "", "This FIO is already in use");
+        if (personDAO.getPersonByFIO(person.getFio()).isPresent() && personDAO.show(person.getId()) == null) {
+            errors.rejectValue("fio", "", "Человек с таким ФИО уже существует");
         }
 
         // Проверяем, что у человека ФИО начинается с заглавной буквы
         if (!Character.isUpperCase(person.getFio().codePointAt(0)))
-            errors.rejectValue("fio", "", "Name should start with a capital letter");
+            errors.rejectValue("fio", "", "ФИО должно начинаться с большой буквы");
 
     }
 }

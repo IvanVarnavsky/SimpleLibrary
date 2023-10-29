@@ -7,7 +7,7 @@
 <body>
 <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
 <div th:unless="${book.getPerson_id()}">
-    Эта книга свободна. Кому её назначить?
+    <span>Эта книга свободна. Кому её назначить?</span>
     <form th:method="PATCH" th:action="@{/books/{id}/give(id=${book.getId()})}">
         <label for="person">Выберите человека:</label>
         <select th:object="${person}" th:field="*{id}" id="person">

@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.example.simplelibrary.models.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -21,10 +20,6 @@ public class BookDAO {
 
     public List<Book> index() {
         return jdbcTemplate.query("SELECT * FROM Book", new BeanPropertyRowMapper<>(Book.class));
-    }
-
-    public List<Book> indexByPerson(int person_id) {
-        return new ArrayList<>(jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{person_id}, new BeanPropertyRowMapper<>(Book.class)));
     }
 
     public Book show(int id) {
