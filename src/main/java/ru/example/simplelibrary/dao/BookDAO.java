@@ -36,6 +36,10 @@ public class BookDAO {
                 book.getAuthor(), book.getYear(), id);
     }
 
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);
+    }
+
     // Назначает книгу читателю (этот метод вызывается, когда читатель забирает книгу из библиотеки)
     public void give(int id, int person_id) {
         jdbcTemplate.update("UPDATE Book SET person_id=? WHERE id=?", person_id, id);
@@ -46,8 +50,10 @@ public class BookDAO {
         jdbcTemplate.update("UPDATE Book SET person_id=null WHERE id=?", id);
     }
 
-    public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);
+    // Получение списка книг по id читателя
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
     }
 
 }
